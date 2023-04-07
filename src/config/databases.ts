@@ -16,3 +16,8 @@ export const loginDBConfig = {
     database: process.env.LOGIN_DB_DATABASE!
 };
 assertUndefinedValue(loginDBConfig, 'loginDBConfig');
+
+export const mainDBConfig = {
+    uri: process.env.MAIN_DB_URI!
+}
+assertUndefinedValue(mainDBConfig, 'mainDBConfig');
