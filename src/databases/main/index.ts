@@ -24,30 +24,30 @@ export default class MainDBClient {
         return new MainDBClient(await mongoose.createConnection(mainDBConfig.uri))
     }
 
-    async insertUser(userInfo: Partial<UserInfo>) : Promise<boolean> {
+    async insertUser(userInfo: Partial<UserInfo>) : Promise<number> {
         try {
             const result = await this.UserInfoModel.create(userInfo);
-            return true;
+            return 1;
         } catch {
-            return false;
+            return 0;
         }
     }
 
-    async updateUser(beforeUserInfo: Partial<UserInfo>, afterUserInfo: Partial<UserInfo>) : Promise<boolean> {
+    async updateUser(beforeUserInfo: Partial<UserInfo>, afterUserInfo: Partial<UserInfo>) : Promise<number> {
         try {
             const result = await this.UserInfoModel.updateMany(beforeUserInfo, afterUserInfo);
-            return true;
+            return result.modifiedCount;
         } catch {
-            return false;
+            return 0;
         }
     }
 
-    async deleteUser(userInfo: Partial<UserInfo>) : Promise<boolean> {
+    async deleteUser(userInfo: Partial<UserInfo>) : Promise<number> {
         try {
             const result = await this.UserInfoModel.deleteMany(userInfo);
-            return true;
+            return result.deletedCount;
         } catch {
-            return false;
+            return 0;
         }
     }
 
@@ -60,30 +60,30 @@ export default class MainDBClient {
         }
     }
 
-    async insertRoom(roomInfo: Partial<RoomInfo>) : Promise<boolean> {
+    async insertRoom(roomInfo: Partial<RoomInfo>) : Promise<number> {
         try {
             const result = await this.RoomInfoModel.create(roomInfo);
-            return true;
+            return 1;
         } catch {
-            return false;
+            return 0;
         }
     }
 
-    async updateRoom(beforeRoomInfo: Partial<RoomInfo>, afterRoomInfo: Partial<RoomInfo>) : Promise<boolean> {
+    async updateRoom(beforeRoomInfo: Partial<RoomInfo>, afterRoomInfo: Partial<RoomInfo>) : Promise<number> {
         try {
             const result = await this.RoomInfoModel.updateMany(beforeRoomInfo, afterRoomInfo);
-            return true;
+            return result.modifiedCount;
         } catch {
-            return false;
+            return 0;
         }
     }
 
-    async deleteRoom(roomInfo: Partial<RoomInfo>) : Promise<boolean> {
+    async deleteRoom(roomInfo: Partial<RoomInfo>) : Promise<number> {
         try {
             const result = await this.RoomInfoModel.deleteMany(roomInfo);
-            return true;
+            return result.deletedCount;
         } catch {
-            return false;
+            return 0;
         }
     }
 

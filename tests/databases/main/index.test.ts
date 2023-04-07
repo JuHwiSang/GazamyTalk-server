@@ -30,7 +30,7 @@ describe("test UserInfo", () => {
             nickname: "__dev_test_nickname",
             rooms: []
         });
-        expect(result).toBe(true);
+        expect(result).toBeGreaterThan(0);
     })
 
     test("select after insert", async () => {
@@ -52,7 +52,7 @@ describe("test UserInfo", () => {
         }, {
             nickname: "__dev_test_nickname_2"
         });
-        expect(result).toBe(true);
+        expect(result).toBeGreaterThan(0);
     })
 
     test("select after update", async () => {
@@ -69,7 +69,7 @@ describe("test UserInfo", () => {
         let result = await client.deleteUser({
             userid: 1
         })
-        expect(result).toBe(true);
+        expect(result).toBeGreaterThan(0);
     })
 
     test("select after delete", async () => {
@@ -102,7 +102,7 @@ describe("test RoomInfo", () => {
             description: "__dev_test_description",
             users: []
         });
-        expect(result).toBe(true);
+        expect(result).toBeGreaterThan(0);
     })
 
     test("select after insert", async () => {
@@ -124,7 +124,7 @@ describe("test RoomInfo", () => {
         }, {
             description: "__dev_test_description_2"
         });
-        expect(result).toBe(true);
+        expect(result).toBeGreaterThan(0);
     })
 
     test("select after update", async () => {
@@ -141,7 +141,7 @@ describe("test RoomInfo", () => {
         let result = await client.deleteRoom({
             roomid: 1
         })
-        expect(result).toBe(true);
+        expect(result).toBeGreaterThan(0);
     })
 
     test("select after delete", async () => {
