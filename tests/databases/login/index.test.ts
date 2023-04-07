@@ -1,14 +1,12 @@
-import LoginDBClient from "@databases/login";
 import dotenv from "dotenv";
+dotenv.config();
+
+import LoginDBClient from "@databases/login";
 
 let client: LoginDBClient;
 let userid: number;
 const selectedPassword = "ACCESS DENIED";
 
-
-beforeAll(async () => {
-    dotenv.config();
-})
 
 test("initialize client", async () => {
     client = await LoginDBClient.create();
