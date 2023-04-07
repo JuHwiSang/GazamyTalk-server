@@ -38,7 +38,7 @@ export default class LoginDBClient {
     }
 
 
-    async insert(insertData: Partial<LoginData> & {[key: string]: string | number}): Promise<boolean> {
+    async insert(insertData: Partial<LoginData> & {[key: string]: string | number}): Promise<number> {
         if (insertData.password === undefined) {
             throw new Error("LoginDBClient.insert must receive 'password'.")
         }
@@ -55,14 +55,14 @@ export default class LoginDBClient {
 
         try {
             const [result]: [OkPacket, FieldPacket[]] = await this.connection.query(sql, values);
-            return result.affectedRows !== 0;
+            return result.affectedRows;
         } catch {
-            return false;
+            return 0;
         }
     }
 
 
-    async update(beforeData: Partial<LoginData>, afterData: Partial<LoginData>): Promise<boolean> {
+    async update(beforeData: Partial<LoginData>, afterData: Partial<LoginData>): Promise<number> {
         const beforeDataKeys = Object.keys(beforeData).filter(isAllowedString);
         const afterDataKeys = Object.keys(afterData).filter(isAllowedString);
         const beforeDataValues = Object.values(beforeData);
@@ -78,15 +78,15 @@ export default class LoginDBClient {
 
         try {
             const [result]: [OkPacket, FieldPacket[]] = await this.connection.query(sql, values);
-            return result.affectedRows !== 0;
+            return result.affectedRows;
         } catch(e) {
-            throw e;
-            return false;
+            // throw e;
+            return 0;
         }
     }
 
 
-    async delete(deleteData: Partial<LoginData>): Promise<boolean> {
+    async delete(deleteData: Partial<LoginData>): Promise<number> {
         const keys = Object.keys(deleteData).filter(isAllowedString);
         const values = Object.values(deleteData);
         const pwIndex = keys.indexOf("password");
@@ -94,9 +94,9 @@ export default class LoginDBClient {
 
         try {
             const [result]: [OkPacket, FieldPacket[]] = await this.connection.query(sql, values);
-            return result.affectedRows !== 0;
+            return result.affectedRows;
         } catch {
-            return false;
+            return 0;
         }
     }
 

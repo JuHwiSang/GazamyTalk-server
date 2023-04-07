@@ -22,7 +22,7 @@ test("SELECT before insert user", async () => {
 
 test("INSERT user", async () => {
     let result = await client.insert({ username: '__dev_test_user', password: '__dev_test_pass1' });
-    expect(result).toBe(true);
+    expect(result).toBeGreaterThan(0);
 })
 
 test("get userid", async () => {
@@ -42,7 +42,7 @@ test("SELECT after insert user", async () => {
 
 test("UPDATE user", async () => {
     let result = await client.update({ userid: userid }, { password: '__dev_test_pass2' });
-    expect(result).toBe(true);
+    expect(result).toBeGreaterThan(0);
 })
 
 test("SELECT after update user", async () => {
@@ -52,7 +52,7 @@ test("SELECT after update user", async () => {
 
 test("DELETE user", async () => {
     let result = await client.delete({ userid: userid });
-    expect(result).toBe(true);
+    expect(result).toBeGreaterThan(0);
 })
 
 test("SELECT after delete user", async () => {
