@@ -75,8 +75,6 @@ export default class LoginDBClient {
         const afterPwIndex = afterDataKeys.indexOf("password");
         const sql = `UPDATE users SET ${keys2query(afterDataKeys, afterPwIndex, ", ")}
             WHERE ${keys2query(beforeDataKeys, beforePwIndex)}`;
-        console.log(sql);
-        console.log(values);
 
         try {
             const [result]: [OkPacket, FieldPacket[]] = await this.connection.query(sql, values);
