@@ -26,7 +26,7 @@ describe("test chatDBClient", () => {
             type: "__dev_test_type",
             time: 100.103013
         });
-        expect(result).toBe(true);
+        expect(result).toBe(1);
     });
 
     test("select after insert", async () => {
@@ -43,7 +43,7 @@ describe("test chatDBClient", () => {
         }, {
             content: "__dev_test_content2"
         });
-        expect(result).toBe(true);
+        expect(result).toBe(1);
     })
 
     test("select after update", async () => {
@@ -54,7 +54,7 @@ describe("test chatDBClient", () => {
     
     test("delete chat", async () => {
         let result = await client.delete({roomid: 100, chatid: 100});
-        expect(result).toBe(true);
+        expect(result).toBe(1);
     })
     
     test("select after delete", async () => {

@@ -20,17 +20,17 @@ export default class ChatDBClient {
         return new ChatDBClient(await MongoClient.connect(chatDBConfig.uri));
     }
 
-    async insert(chatInfo: ChatInfo) : Promise<boolean> {
+    async insert(chatInfo: ChatInfo) : Promise<number> {
         let collection = this.db.collection<ChatInfo>(`room-${chatInfo.roomid}`);
         try {
             let result = await collection.insertOne(chatInfo);
-            return result.acknowledged === true;
+            return result.acknowledged ? 1 : 0;
         } catch {
-            return false;
+            return 0;
         }
     }
 
-    async update(beforeChatInfo: Partial<ChatInfo>, afterChatInfo: Partial<ChatInfo>) : Promise<boolean> {
+    async update(beforeChatInfo: Partial<ChatInfo>, afterChatInfo: Partial<ChatInfo>) : Promise<number> {
         if (beforeChatInfo.roomid === undefined) {
             throw new Error("ChatDBClient.update - beforeChatInfo must receive roomid");
         }
@@ -40,22 +40,22 @@ export default class ChatDBClient {
         let collection = this.db.collection<ChatInfo>(`room-${beforeChatInfo.roomid}`);
         try {
             let result = await collection.updateMany(beforeChatInfo, { $set: afterChatInfo });
-            return result.acknowledged === true;
+            return result.modifiedCount;
         } catch {
-            return false;
+            return 0;
         }
     }
     
-    async delete(chatInfo: Partial<ChatInfo>) : Promise<boolean> {
+    async delete(chatInfo: Partial<ChatInfo>) : Promise<number> {
         if (chatInfo.roomid === undefined) {
             throw new Error("ChatDBClient.delete must receive roomid");
         }
         let collection = this.db.collection<ChatInfo>(`room-${chatInfo.roomid}`);
         try {
             let result = await collection.deleteMany(chatInfo);
-            return result.acknowledged === true;
+            return result.deletedCount;
         } catch {
-            return false;
+            return 0;
         }
     }
     
