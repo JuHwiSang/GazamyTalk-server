@@ -1,4 +1,4 @@
-import mongodb, { MongoClient, Db } from "mongodb";
+import mongodb, { MongoClient, Db, Filter, UpdateFilter } from "mongodb";
 
 import { chatDBConfig } from "@config/databases";
 import { ChatInfo } from "./models/ChatInfo";
@@ -30,7 +30,7 @@ export default class ChatDBClient {
         }
     }
 
-    async update(beforeChatInfo: Partial<ChatInfo>, afterChatInfo: Partial<ChatInfo>) : Promise<number> {
+    async update(beforeChatInfo: Partial<Filter<ChatInfo>>, afterChatInfo: Partial<UpdateFilter<ChatInfo>>) : Promise<number> {
         if (beforeChatInfo.roomid === undefined) {
             throw new Error("ChatDBClient.update - beforeChatInfo must receive roomid");
         }
@@ -39,14 +39,14 @@ export default class ChatDBClient {
         }
         let collection = this.db.collection<ChatInfo>(`room-${beforeChatInfo.roomid}`);
         try {
-            let result = await collection.updateMany(beforeChatInfo, { $set: afterChatInfo });
+            let result = await collection.updateMany(beforeChatInfo, afterChatInfo);
             return result.matchedCount;
         } catch {
             return 0;
         }
     }
     
-    async delete(chatInfo: Partial<ChatInfo>) : Promise<number> {
+    async delete(chatInfo: Partial<Filter<ChatInfo>>) : Promise<number> {
         if (chatInfo.roomid === undefined) {
             throw new Error("ChatDBClient.delete must receive roomid");
         }
@@ -59,7 +59,7 @@ export default class ChatDBClient {
         }
     }
     
-    async select(chatInfo: Partial<ChatInfo>) : Promise<ChatInfo[]> {
+    async select(chatInfo: Partial<Filter<ChatInfo>>) : Promise<ChatInfo[]> {
         if (chatInfo.roomid === undefined) {
             throw new Error("ChatDBClient.select must receive roomid");
         }

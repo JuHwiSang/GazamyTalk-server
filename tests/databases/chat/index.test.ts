@@ -41,7 +41,7 @@ describe("test chatDBClient", () => {
             chatid: 100,
             roomid: 100
         }, {
-            content: "__dev_test_content2"
+            $set: {content: "__dev_test_content2" }
         });
         expect(result).toBe(1);
     })

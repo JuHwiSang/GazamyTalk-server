@@ -1,4 +1,4 @@
-import mongoose, { Connection, Model } from "mongoose";
+import mongoose, { Connection, Model, UpdateQuery, FilterQuery } from "mongoose";
 
 import { UserInfo, createUserInfoModel } from "./models/UserInfo";
 import { RoomInfo, createRoomInfoModel } from "./models/RoomInfo";
@@ -33,7 +33,7 @@ export default class MainDBClient {
         }
     }
 
-    async updateUser(beforeUserInfo: Partial<UserInfo>, afterUserInfo: Partial<UserInfo>) : Promise<number> {
+    async updateUser(beforeUserInfo: FilterQuery<Partial<UserInfo>>, afterUserInfo: UpdateQuery<Partial<UserInfo>>) : Promise<number> {
         try {
             const result = await this.UserInfoModel.updateMany(beforeUserInfo, afterUserInfo);
             return result.matchedCount;
@@ -42,7 +42,7 @@ export default class MainDBClient {
         }
     }
 
-    async deleteUser(userInfo: Partial<UserInfo>) : Promise<number> {
+    async deleteUser(userInfo: FilterQuery<Partial<UserInfo>>) : Promise<number> {
         try {
             const result = await this.UserInfoModel.deleteMany(userInfo);
             return result.deletedCount;
@@ -51,7 +51,7 @@ export default class MainDBClient {
         }
     }
 
-    async selectUser(userInfo: Partial<UserInfo>) : Promise<UserInfo[]> {
+    async selectUser(userInfo: FilterQuery<Partial<UserInfo>>) : Promise<UserInfo[]> {
         try {
             const result: UserInfo[] = await this.UserInfoModel.find(userInfo);
             return result;
@@ -69,7 +69,7 @@ export default class MainDBClient {
         }
     }
 
-    async updateRoom(beforeRoomInfo: Partial<RoomInfo>, afterRoomInfo: Partial<RoomInfo>) : Promise<number> {
+    async updateRoom(beforeRoomInfo: FilterQuery<Partial<RoomInfo>>, afterRoomInfo: UpdateQuery<Partial<RoomInfo>>) : Promise<number> {
         try {
             const result = await this.RoomInfoModel.updateMany(beforeRoomInfo, afterRoomInfo);
             return result.matchedCount;
@@ -78,7 +78,7 @@ export default class MainDBClient {
         }
     }
 
-    async deleteRoom(roomInfo: Partial<RoomInfo>) : Promise<number> {
+    async deleteRoom(roomInfo: FilterQuery<Partial<RoomInfo>>) : Promise<number> {
         try {
             const result = await this.RoomInfoModel.deleteMany(roomInfo);
             return result.deletedCount;
@@ -87,7 +87,7 @@ export default class MainDBClient {
         }
     }
 
-    async selectRoom(roomInfo: Partial<RoomInfo>) : Promise<RoomInfo[]> {
+    async selectRoom(roomInfo: FilterQuery<Partial<RoomInfo>>) : Promise<RoomInfo[]> {
         try {
             const result: RoomInfo[] = await this.RoomInfoModel.find(roomInfo);
             return result;
