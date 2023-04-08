@@ -61,4 +61,20 @@ describe("test chatDBClient", () => {
         let result = await client.select({roomid: 100});
         expect(result.length).toBe(0);
     })
+
+    test("close client", async () => {
+        await client.close();
+    })
+
+    test("select after close", async () => {
+        let result = await client.insert({
+            chatid: 100,
+            roomid: 100,
+            userid: 100,
+            content: "__dev_test_content",
+            type: "__dev_test_type",
+            time: 100.103013
+        });
+        expect(result).toBe(0);
+    })
 })

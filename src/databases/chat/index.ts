@@ -71,4 +71,8 @@ export default class ChatDBClient {
             return [];
         }
     }
+
+    async close() : Promise<void> {
+        await this.client.close();
+    }
 }

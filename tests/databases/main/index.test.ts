@@ -151,4 +151,18 @@ describe("test RoomInfo", () => {
         expect(result.length).toBe(0);
     })
 
+    test("close client", async () => {
+        await client.close();
+    })
+
+    test("insert after close", async () => {
+        let result = await client.insertRoom({
+            roomid: 1,
+            roomname: "__dev_test_roomname",
+            description: "__dev_test_description",
+            users: []
+        });
+        expect(result).toBe(0);
+    })
+
 })

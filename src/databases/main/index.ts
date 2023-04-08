@@ -96,4 +96,8 @@ export default class MainDBClient {
         }
     }
 
+    async close() : Promise<void> {
+        this.connection.close();
+    }
+
 }
