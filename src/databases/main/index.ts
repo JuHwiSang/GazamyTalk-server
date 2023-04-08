@@ -36,7 +36,7 @@ export default class MainDBClient {
     async updateUser(beforeUserInfo: Partial<UserInfo>, afterUserInfo: Partial<UserInfo>) : Promise<number> {
         try {
             const result = await this.UserInfoModel.updateMany(beforeUserInfo, afterUserInfo);
-            return result.modifiedCount;
+            return result.matchedCount;
         } catch {
             return 0;
         }
@@ -72,7 +72,7 @@ export default class MainDBClient {
     async updateRoom(beforeRoomInfo: Partial<RoomInfo>, afterRoomInfo: Partial<RoomInfo>) : Promise<number> {
         try {
             const result = await this.RoomInfoModel.updateMany(beforeRoomInfo, afterRoomInfo);
-            return result.modifiedCount;
+            return result.matchedCount;
         } catch {
             return 0;
         }

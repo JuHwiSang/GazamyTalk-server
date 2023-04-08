@@ -40,7 +40,7 @@ export default class ChatDBClient {
         let collection = this.db.collection<ChatInfo>(`room-${beforeChatInfo.roomid}`);
         try {
             let result = await collection.updateMany(beforeChatInfo, { $set: afterChatInfo });
-            return result.modifiedCount;
+            return result.matchedCount;
         } catch {
             return 0;
         }

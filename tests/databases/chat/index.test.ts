@@ -66,7 +66,7 @@ describe("test chatDBClient", () => {
         await client.close();
     })
 
-    test("select after close", async () => {
+    test("insert after close", async () => {
         let result = await client.insert({
             chatid: 100,
             roomid: 100,

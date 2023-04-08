@@ -69,7 +69,7 @@ describe("test LoginDBClient", () => {
         await client.close();
     })
 
-    test("SELECT after close client", async () => {
+    test("INSERT after close client", async () => {
         let result = await client.insert({ username: '__dev_test_user', password: '__dev_test_pass1' });
         expect(result).toBe(0);
     })
