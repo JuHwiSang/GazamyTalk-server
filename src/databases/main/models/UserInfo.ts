@@ -6,6 +6,7 @@ export interface UserInfo {
     nickname: string
     description: string
     rooms: number[]
+    friends: number[]
 }
 
 const UserInfoSchema = new Schema(
@@ -14,7 +15,8 @@ const UserInfoSchema = new Schema(
         username: { type: String, require: true },
         nickname: { type: String, require: true },
         description: { type: String, require: true },
-        rooms: { type: Array<number>, require: true }
+        rooms: { type: Array<number>, require: true },
+        friends: { type: Array<number>, require: true }
     }
 )
 

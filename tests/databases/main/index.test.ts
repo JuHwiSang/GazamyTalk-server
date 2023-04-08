@@ -50,7 +50,10 @@ describe("test UserInfo", () => {
         let result = await client.updateUser({
             userid: 1
         }, {
-            nickname: "__dev_test_nickname_2"
+            nickname: "__dev_test_nickname_2",
+            $push: {
+                friends: 1
+            }
         });
         expect(result).toBeGreaterThan(0);
     })
@@ -63,6 +66,7 @@ describe("test UserInfo", () => {
         expect(result.length).toBeGreaterThan(0);
         expect(result[0].nickname).toBe("__dev_test_nickname_2");
         expect(result[0].username).toBe("__dev_test_username");
+        expect(result[0].friends).toStrictEqual([1]);
     })
 
     test("delete userInfo", async () => {
