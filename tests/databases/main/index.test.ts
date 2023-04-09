@@ -94,14 +94,13 @@ describe("test RoomInfo", () => {
 
     test("select before insert", async () => {
         let result = await client.selectRoom({
-            roomid: 1
+            roomname: "__dev_test_roomname"
         })
         expect(result.length).toBe(0);
     })
 
     test("insert roomInfo", async () => {
         let result = await client.insertRoom({
-            roomid: 1,
             roomname: "__dev_test_roomname",
             description: "__dev_test_description",
             users: []
@@ -111,7 +110,7 @@ describe("test RoomInfo", () => {
 
     test("select after insert", async () => {
         let result = await client.selectRoom({
-            roomid: 1
+            roomname: "__dev_test_roomname"
         })
         expect(result.length).toBeGreaterThan(0);
         expect(result[0].description).toBe("__dev_test_description");
@@ -124,7 +123,7 @@ describe("test RoomInfo", () => {
 
     test("update roomInfo", async () => {
         let result = await client.updateRoom({
-            roomid: 1
+            roomname: "__dev_test_roomname"
         }, {
             description: "__dev_test_description_2"
         });
@@ -133,7 +132,7 @@ describe("test RoomInfo", () => {
 
     test("select after update", async () => {
         let result = await client.selectRoom({
-            roomid: 1,
+            roomname: "__dev_test_roomname",
             description: "__dev_test_description_2"
         })
         expect(result.length).toBeGreaterThan(0);
@@ -143,14 +142,14 @@ describe("test RoomInfo", () => {
 
     test("delete roomInfo", async () => {
         let result = await client.deleteRoom({
-            roomid: 1
+            roomname: "__dev_test_roomname"
         })
         expect(result).toBeGreaterThan(0);
     })
 
     test("select after delete", async () => {
         let result = await client.selectRoom({
-            roomid: 1
+            roomname: "__dev_test_roomname"
         })
         expect(result.length).toBe(0);
     })
@@ -161,7 +160,6 @@ describe("test RoomInfo", () => {
 
     test("insert after close", async () => {
         let result = await client.insertRoom({
-            roomid: 1,
             roomname: "__dev_test_roomname",
             description: "__dev_test_description",
             users: []

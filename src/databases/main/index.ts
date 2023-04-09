@@ -33,7 +33,7 @@ export default class MainDBClient {
         }
     }
 
-    async updateUser(beforeUserInfo: FilterQuery<Partial<UserInfo>>, afterUserInfo: UpdateQuery<Partial<UserInfo>>) : Promise<number> {
+    async updateUser(beforeUserInfo: FilterQuery<Partial<UserInfo>>, afterUserInfo: Partial<UpdateQuery<UserInfo>>) : Promise<number> {
         try {
             const result = await this.UserInfoModel.updateMany(beforeUserInfo, afterUserInfo);
             return result.matchedCount;

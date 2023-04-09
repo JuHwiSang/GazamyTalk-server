@@ -9,7 +9,7 @@ export interface RoomInfo {
 
 const RoomInfoSchema = new Schema(
     {
-        roomid: { type: Number, require: true, unique: true },
+        roomid: { type: Schema.Types.ObjectId, auto: true },
         roomname: { type: String, require: true },
         description: { type: String, require: true },
         users: { type: Array<number>, require: true }
